@@ -8,6 +8,7 @@ class BalanceDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(35),
       alignment: Alignment.centerLeft,
       child: Row(
         children: [

@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:wallet_kit/constants/app_colors.dart';
 import 'package:wallet_kit/constants/components.dart';
 import 'package:wallet_kit/constants/margins.dart';
-import 'package:wallet_kit/constants/strings.dart';
 import 'package:wallet_kit/globals.dart';
 import 'package:wallet_kit/widgets/home/balance_display.dart';
 import 'package:wallet_kit/widgets/home/balance_list.dart';
 import 'package:wallet_kit/widgets/home/floating_expandable_action_button.dart';
-import 'package:wallet_kit/widgets/home/welcome_display.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,7 +24,6 @@ class HomePage extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: [
-                    const WelcomeDisplay(),
                     const BalanceDisplay(),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 35),
@@ -75,28 +72,7 @@ class HomePage extends StatelessWidget {
                         )
                       ]),
                     ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2),
-                            child: Text(
-                              '$actualMonth last movements',
-                              style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: primaryVariant),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const BalanceList(),
-                    const Icon(
-                      Icons.more_horiz,
-                      color: primaryColor,
-                      size: 40,
-                    )
+                    
                   ],
                 ),
               ),
