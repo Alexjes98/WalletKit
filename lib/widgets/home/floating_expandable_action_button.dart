@@ -27,7 +27,8 @@ class FloatingExpandableActionButton extends StatelessWidget {
           backgroundColor: primaryColor,
           foregroundColor: white,
           onPressed: () {
-            Navigator.of(context).pushNamed('/addMovement');
+            Navigator.of(context).pushNamed('/addMovement').then(
+                (value) => Navigator.of(context).pushReplacementNamed('/'));
           },
           child: const Icon(Icons.attach_money),
         ),

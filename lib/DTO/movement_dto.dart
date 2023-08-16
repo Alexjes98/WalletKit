@@ -1,22 +1,23 @@
 class MovementDTO {
   final int id;
   final int userId;
-  final String transaction_type;
+  final String transactionType;
   final String description;
   final String? source;
   final double amount;
-  final String movement_category;
+  final int movementCategory;
   final int? debtId;
   final DateTime date;
+  final DateTime createdAt = DateTime.now();
 
   MovementDTO({
     required this.id,
     required this.userId,
-    required this.transaction_type,
+    required this.transactionType,
     required this.description,
     this.source,
     required this.amount,
-    required this.movement_category,
+    required this.movementCategory,
     this.debtId,
     required this.date,
   });
@@ -25,11 +26,11 @@ class MovementDTO {
     return MovementDTO(
       id: json['id'],
       userId: json['userId'],
-      transaction_type: json['transaction_type'],
+      transactionType: json['transaction_type'],
       description: json['description'],
       source: json['source'],
       amount: json['amount'].toDouble(),
-      movement_category: json['movement_category'],
+      movementCategory: json['movement_category'],
       debtId: json['debtId'],
       date: DateTime.parse(json['date']),
     );
@@ -39,13 +40,14 @@ class MovementDTO {
     return {
       'id': id,
       'userId': userId,
-      'transaction_type': transaction_type,
+      'transaction_type': transactionType,
       'description': description,
       'source': source,
       'amount': amount,
-      'movement_category': movement_category,
+      'movement_category': movementCategory,
       'debtId': debtId,
       'date': date.toIso8601String(),
+      'createdAt': createdAt.toIso8601String(),
     };
   }
 }

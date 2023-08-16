@@ -4,12 +4,12 @@ import 'package:wallet_kit/constants/app_colors.dart';
 import 'package:wallet_kit/styles/text/texts.dart';
 
 class ExpenseIncomeSelector extends StatefulWidget {
-  ExpenseIncomeSelector({Key? key, @required this.setMovementValue})
+  ExpenseIncomeSelector({Key? key, required this.setMovementValue})
       : super(key: key);
 
   var selectEar = false;
   var selectExp = false;
-  final setMovementValue;
+  Function setMovementValue;
 
   @override
   State<ExpenseIncomeSelector> createState() => _ExpenseIncomeSelectorState();
@@ -35,8 +35,8 @@ class _ExpenseIncomeSelectorState extends State<ExpenseIncomeSelector> {
                     setState(() {
                       widget.selectEar = false;
                       widget.selectExp = true;
-                      widget.setMovementValue(true);
                     });
+                    widget.setMovementValue("movement_type", false);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
@@ -54,8 +54,8 @@ class _ExpenseIncomeSelectorState extends State<ExpenseIncomeSelector> {
                     setState(() {
                       widget.selectEar = true;
                       widget.selectExp = false;
-                      widget.setMovementValue(false);
                     });
+                    widget.setMovementValue("movement_type", true);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:

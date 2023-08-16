@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_kit/DTO/movement_dto.dart';
 import 'package:wallet_kit/constants/app_colors.dart';
 import 'package:wallet_kit/constants/components.dart';
 import 'package:wallet_kit/constants/margins.dart';
@@ -8,79 +9,32 @@ import 'package:wallet_kit/widgets/home/balance_list.dart';
 import 'package:wallet_kit/widgets/home/floating_expandable_action_button.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
-class HomePage extends StatelessWidget {
+import 'package:wallet_kit/services/movements.dart';
+import 'package:wallet_kit/widgets/last_movements_list.dart';
+
+class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: backgroundColor,
         appBar: ConstAppBar,
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: mainMarginH),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  children: [
-                    const BalanceDisplay(),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 35),
-                      child: Column(children: [
-                        const Text(
-                          'Month resume',
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                '85\$',
-                                style: TextStyle(
-                                    color: balanceColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                '100\$',
-                                style: TextStyle(
-                                    color: earnColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                '15\$',
-                                style: TextStyle(
-                                    color: expenseColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              ),
-                            ),
-                          ],
-                        )
-                      ]),
-                    ),
-                    
-                  ],
-                ),
-              ),
-            ],
-          ),
+        body: Column(
+          children: [
+            const BalanceDisplay(),
+            
+            Expanded(child: LastMovementsList())
+          ],
         ),
         floatingActionButtonLocation: ExpandableFab.location,
-        floatingActionButton: FloatingExpandableActionButton(),
+        floatingActionButton: const FloatingExpandableActionButton(),
       ),
     );
   }
