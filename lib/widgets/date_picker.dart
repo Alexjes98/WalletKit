@@ -4,8 +4,10 @@ import '../constants/app_colors.dart';
 import 'package:wallet_kit/styles/text/texts.dart';
 
 class DateSelectionRow extends StatefulWidget {
+  const DateSelectionRow({super.key, required this.serMovementValue});
+  final Function serMovementValue;
   @override
-  _DateSelectionRowState createState() => _DateSelectionRowState();
+  State<DateSelectionRow> createState() => _DateSelectionRowState();
 }
 
 class _DateSelectionRowState extends State<DateSelectionRow> {
@@ -54,6 +56,7 @@ class _DateSelectionRowState extends State<DateSelectionRow> {
                 setState(() {
                   dateController.text = formattedDate;
                 });
+                widget.serMovementValue('movement_date', formattedDate);
               }
             }),
       ],

@@ -14,26 +14,14 @@ class BalanceDisplay extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'General balance',
+            children: const [
+              Text(
+                'General balance 0\$',
                 style: TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30),
+                    fontSize: 28),
               ),
-              Row(
-                children: const [
-                  Text(
-                    '0\$',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        color: primaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30),
-                  ),
-                ],
-              )
             ],
           ),
         ],

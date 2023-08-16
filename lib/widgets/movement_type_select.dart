@@ -4,8 +4,11 @@ import 'package:wallet_kit/constants/app_colors.dart';
 import 'package:wallet_kit/styles/text/texts.dart';
 
 class MoneyMovementCategorySelector extends StatefulWidget {
+  const MoneyMovementCategorySelector(
+      {super.key, required this.setMovementValue});
+  final Function setMovementValue;
   @override
-  _MoneyMovementCategorySelectorState createState() =>
+  State<MoneyMovementCategorySelector> createState() =>
       _MoneyMovementCategorySelectorState();
 }
 
@@ -27,19 +30,16 @@ class _MoneyMovementCategorySelectorState
     setState(() {
       selectedTypes = typeId;
     });
+    widget.setMovementValue('movement_category', typeId);
   }
-
-  String _getSelectedTypesString() {
-    return selectedTypes.toString();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'What type of movement is it?',
+          'In which category is this movement?',
           style: basic_form_title,
         ),
         Wrap(

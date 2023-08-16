@@ -1,24 +1,33 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'package:wallet_kit/constants/components.dart';
-import 'package:wallet_kit/constants/margins.dart';
 import 'package:wallet_kit/widgets/date_picker.dart';
 import 'package:wallet_kit/widgets/expense_income_selector.dart';
 import 'package:wallet_kit/widgets/movement_type_select.dart';
 import 'package:wallet_kit/widgets/textInput/input_text_field.dart';
-
 import 'package:wallet_kit/constants/app_colors.dart';
-import 'package:wallet_kit/styles/text/texts.dart';
-import '../constants/strings.dart';
 
-class AddMovementPage extends StatelessWidget {
-  AddMovementPage({Key? key}) : super(key: key);
+import 'package:wallet_kit/DTO/movement_dto.dart';
 
+import 'package:wallet_kit/utils/generator.dart';
+
+import '../services/movements.dart';
+
+class AddMovementPage extends StatefulWidget {
+  const AddMovementPage({key}) : super(key: key);
+
+  @override
+  State<AddMovementPage> createState() => _AddMovementPageState();
+}
+
+class _AddMovementPageState extends State<AddMovementPage> {
   TextEditingController amountController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  var movement;
-
-  void setMovement(value) {
-    movement = value;
+  var movement = {};
+  void setMovementField(String field, var value) {
+    movement[field] = value;
   }
 
   @override
@@ -48,26 +57,31 @@ class AddMovementPage extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    ExpenseIncomeSelector(setMovementValue: setMovement),
-                    const InputTextField(
+                    ExpenseIncomeSelector(setMovementValue: setMovementField),
+                    InputTextField(
                       labelText: 'Amount',
                       hintText: '\$\$\$',
                       icon: Icons.attach_money,
+                      keyboardType: TextInputType.number,
+                      inputController: amountController,
                     ),
-                    const InputTextField(
+                    InputTextField(
                       labelText: 'Description',
                       hintText: 'A diner with friends...',
                       icon: Icons.list_alt_outlined,
                       keyboardType: TextInputType.multiline,
+                      inputController: descriptionController,
                     ),
-                    MoneyMovementCategorySelector(),
+                    MoneyMovementCategorySelector(
+                      setMovementValue: setMovementField,
+                    ),
                     const InputTextField(
                       labelText: 'It has a debt?',
                       hintText: 'This money comes or goes to a debt?',
                       icon: Icons.timelapse,
                       keyboardType: TextInputType.multiline,
                     ),
-                    DateSelectionRow(),
+                    DateSelectionRow(serMovementValue: setMovementField),
                     ButtonBar(
                       alignment: MainAxisAlignment.center,
                       children: [
@@ -76,7 +90,26 @@ class AddMovementPage extends StatelessWidget {
                             backgroundColor: primaryColor,
                             foregroundColor: white,
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            var dateFormat = DateFormat('yyyy-MM-dd');
+                            MovementDTO newMovement = MovementDTO(
+                              id: int.parse(generateRandomIdByDate()),
+                              userId: 0,
+                              transactionType: movement['movement_type'] == true
+                                  ? 'income'
+                                  : 'expense',
+                              description: descriptionController.text,
+                              source: 'source',
+                              amount: double.parse(amountController.text),
+                              movementCategory: movement['movement_category'],
+                              debtId: 0,
+                              date: dateFormat.parse(movement['movement_date']),
+                            );
+                            final encryptionHelper = EncryptionHelper();
+                            await encryptionHelper
+                                .saveEncryptedMovement(newMovement)
+                                .then((value) => Navigator.of(context).pop());
+                          },
                           child: const Text('Add movement'),
                         )
                       ],
