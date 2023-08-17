@@ -100,12 +100,14 @@ class _AddMovementPageState extends State<AddMovementPage> {
                                   : 'expense',
                               description: descriptionController.text,
                               source: 'source',
-                              amount: double.parse(amountController.text),
+                              amount: movement['movement_type'] == true
+                                  ? double.parse(amountController.text)
+                                  : -double.parse(amountController.text),
                               movementCategory: movement['movement_category'],
                               debtId: 0,
                               date: dateFormat.parse(movement['movement_date']),
                             );
-                            final encryptionHelper = EncryptionHelper();
+                            final encryptionHelper = MovementsService();
                             await encryptionHelper
                                 .saveEncryptedMovement(newMovement)
                                 .then((value) => Navigator.of(context).pop());

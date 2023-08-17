@@ -4,14 +4,14 @@ import '../DTO/movement_dto.dart';
 import '../services/movements.dart';
 
 class LastMovementsList extends StatelessWidget {
-  final EncryptionHelper encryptionHelper = EncryptionHelper();
+  final MovementsService movementService = MovementsService();
   late Future<List<MovementDTO>> decryptedMovements;
   LastMovementsList({super.key}) {
     decryptedMovements = _loadDecryptedMovements();
   }
   Future<List<MovementDTO>> _loadDecryptedMovements() async {
     List<MovementDTO> movements =
-        await encryptionHelper.getAllDecryptedMovements();
+        await movementService.getAllDecryptedMovements();
     return movements.toList();
   }
 
@@ -43,7 +43,7 @@ class LastMovementsList extends StatelessWidget {
                     return ListTile(
                       title: Text(movement.description),
                       subtitle: Text(
-                          'Amount: \$${movement.amount.toStringAsFixed(2)} - ${movement.transactionType}',
+                          'Amount: \$${movement.amount.abs().toStringAsFixed(2)} - ${movement.transactionType}',
                           style: TextStyle(
                             color: movement.transactionType == 'income'
                                 ? Colors.green

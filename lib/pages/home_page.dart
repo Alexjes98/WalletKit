@@ -4,6 +4,7 @@ import 'package:wallet_kit/constants/app_colors.dart';
 import 'package:wallet_kit/constants/components.dart';
 import 'package:wallet_kit/constants/margins.dart';
 import 'package:wallet_kit/globals.dart';
+import 'package:wallet_kit/services/balances.dart';
 import 'package:wallet_kit/widgets/home/balance_display.dart';
 import 'package:wallet_kit/widgets/home/balance_list.dart';
 import 'package:wallet_kit/widgets/home/floating_expandable_action_button.dart';
@@ -28,7 +29,20 @@ class _HomePageState extends State<HomePage> {
         appBar: ConstAppBar,
         body: Column(
           children: [
-            const BalanceDisplay(),
+            BalanceDisplay(),
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    MovementsService movementsService = MovementsService();
+                    await movementsService.deleteAllEncryptedMovements();
+                    setState(() {});
+                  },
+                  child: const Text('DELETE'),
+                ),
+              ],
+            ),
             
             Expanded(child: LastMovementsList())
           ],
