@@ -22,7 +22,29 @@ class MovementsService {
   }
 
   Future<void> deleteEncryptedMovement(int id) async {
-    await _encryptionHelper.storage.delete(key: '$id');
+    final encryptedMovements =
+        await _encryptionHelper.storage.read(key: 'movements');
+    if (encryptedMovements != null) {
+      final encrypter =
+          Encrypter(AES(_encryptionHelper.key, mode: AESMode.cbc));
+      final encryptedValues = encryptedMovements.split(',');
+      final List<String> newEncryptedValues = [];
+      for (var encryptedValue in encryptedValues) {
+        try {
+          final decrypted =
+              encrypter.decrypt64(encryptedValue, iv: _encryptionHelper.iv);
+          final decodedJson = json.decode(decrypted);
+          final movement = MovementDTO.fromJson(decodedJson);
+          if (movement.id != id) {
+            newEncryptedValues.add(encryptedValue);
+          }
+        } catch (e) {
+          // Handle decryption errors
+        }
+      }
+      await _encryptionHelper.storage
+          .write(key: 'movements', value: newEncryptedValues.join(','));
+    }
   }
 
   Future<void> deleteAllEncryptedMovements() async {
@@ -50,6 +72,7 @@ class MovementsService {
         }
       }
     }
+    return null;
   }
 
   Future<List<MovementDTO>> getAllDecryptedMovements() async {

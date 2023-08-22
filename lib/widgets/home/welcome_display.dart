@@ -10,9 +10,9 @@ class WelcomeDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           Text(
             'Welcome $userName',
             style: TextStyle(

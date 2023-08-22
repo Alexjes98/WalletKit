@@ -16,7 +16,7 @@ class BalanceList extends StatelessWidget {
               bottom: BorderSide(color: primaryColor, width: 3))),
       child: ListView(
         shrinkWrap: true,
-        children: [
+        children: const [
           MovementListTile(
             amount: 15,
             change: '\$',

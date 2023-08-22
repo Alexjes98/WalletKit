@@ -1,8 +1,10 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wallet_kit/DTO/movement_category_dto.dart';
 
 import 'package:wallet_kit/constants/components.dart';
+import 'package:wallet_kit/services/movement_category.dart';
 import 'package:wallet_kit/widgets/date_picker.dart';
 import 'package:wallet_kit/widgets/expense_income_selector.dart';
 import 'package:wallet_kit/widgets/movement_type_select.dart';
@@ -130,7 +132,7 @@ class _AddMovementPageState extends State<AddMovementPage> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                 )
               ],
             )),

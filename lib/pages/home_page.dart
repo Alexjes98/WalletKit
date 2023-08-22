@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_kit/DTO/movement_dto.dart';
 import 'package:wallet_kit/constants/app_colors.dart';
 import 'package:wallet_kit/constants/components.dart';
-import 'package:wallet_kit/constants/margins.dart';
-import 'package:wallet_kit/globals.dart';
-import 'package:wallet_kit/services/balances.dart';
 import 'package:wallet_kit/widgets/home/balance_display.dart';
-import 'package:wallet_kit/widgets/home/balance_list.dart';
 import 'package:wallet_kit/widgets/home/floating_expandable_action_button.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
@@ -14,7 +9,7 @@ import 'package:wallet_kit/services/movements.dart';
 import 'package:wallet_kit/widgets/last_movements_list.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();

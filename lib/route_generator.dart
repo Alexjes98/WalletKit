@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_kit/constants/strings.dart';
+import 'package:wallet_kit/pages/add_movement_category_page.dart';
 import 'package:wallet_kit/pages/add_movement_page.dart';
 import 'package:wallet_kit/pages/home_page.dart';
 
@@ -10,9 +11,11 @@ class RouteGenerator {
 
     switch (name) {
       case '/':
-        return MaterialPageRoute(builder: ((_) => HomePage()));
+        return MaterialPageRoute(builder: ((_) => const HomePage()));
       case '/addMovement':
-        return MaterialPageRoute(builder: ((_) => AddMovementPage()));
+        return MaterialPageRoute(builder: ((_) => const AddMovementPage()));
+      case '/addMovementCategory':
+        return MaterialPageRoute(builder: ((_) => const AddMovementCategoryPage()));
       default:
         return _errorRoute();
     }

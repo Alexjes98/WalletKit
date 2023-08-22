@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wallet_kit/constants/app_colors.dart';
 
 class MovementListTile extends StatelessWidget {
-  MovementListTile(
+  const MovementListTile(
       {Key? key,
       this.amount,
       this.description,
