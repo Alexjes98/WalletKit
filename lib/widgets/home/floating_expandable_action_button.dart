@@ -50,6 +50,24 @@ class FloatingExpandableActionButton extends StatelessWidget {
           },
           child: const Icon(Icons.book),
         ),
+        FloatingActionButton(
+          heroTag: 'addPerson',
+          backgroundColor: primaryColor,
+          foregroundColor: white,
+          onPressed: () {
+            Navigator.of(context).pushNamed('/addPerson');
+          },
+          child: const Icon(Icons.person),
+        ),
+        FloatingActionButton(
+          heroTag: 'persons',
+          backgroundColor: primaryColor,
+          foregroundColor: white,
+          onPressed: () {
+            Navigator.of(context).pushNamed('/persons');
+          },
+          child: const Icon(Icons.people),
+        ),
       ],
     );
   }
