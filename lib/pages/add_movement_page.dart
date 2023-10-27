@@ -83,7 +83,7 @@ class _AddMovementPageState extends State<AddMovementPage> {
                       icon: Icons.timelapse,
                       keyboardType: TextInputType.multiline,
                     ),
-                    DateSelectionRow(serMovementValue: setMovementField),
+                    DateSelectionRow(serDateValue: setMovementField),
                     ButtonBar(
                       alignment: MainAxisAlignment.center,
                       children: [
@@ -93,7 +93,7 @@ class _AddMovementPageState extends State<AddMovementPage> {
                             foregroundColor: white,
                           ),
                           onPressed: () async {
-                            var dateFormat = DateFormat('yyyy-MM-dd');
+                            final dateFormat = DateFormat('yyyy-MM-dd');
                             MovementDTO newMovement = MovementDTO(
                               id: int.parse(generateRandomIdByDate()),
                               userId: 0,
@@ -107,7 +107,7 @@ class _AddMovementPageState extends State<AddMovementPage> {
                                   : -double.parse(amountController.text),
                               movementCategory: movement['movement_category'],
                               debtId: 0,
-                              date: dateFormat.parse(movement['movement_date']),
+                              date: dateFormat.parse(movement['date']),
                             );
                             final encryptionHelper = MovementsService();
                             await encryptionHelper

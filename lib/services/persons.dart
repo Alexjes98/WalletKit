@@ -44,4 +44,10 @@ class PersonsService {
     }
     return [];
   }
+
+  Future<String> getPersonNameById(int id) async {
+    final persons = await getDecryptedPersons();
+    final person = persons.firstWhere((element) => element.id == id);
+    return person.name;
+  }
 }
