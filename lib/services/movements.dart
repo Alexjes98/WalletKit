@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'package:encrypt/encrypt.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../DTO/movement_dto.dart';
 import '../utils/encryption_helper.dart';
+
+final movementsProvider =
+    Provider<MovementsService>((ref) => MovementsService());
 
 class MovementsService {
   final EncryptionHelper _encryptionHelper = EncryptionHelper();

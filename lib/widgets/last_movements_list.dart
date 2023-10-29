@@ -4,32 +4,13 @@ import 'package:wallet_kit/constants/app_colors.dart';
 import 'package:wallet_kit/utils/formater.dart';
 
 import '../DTO/movement_dto.dart';
-import '../services/movements.dart';
 
 class LastMovementsList extends StatelessWidget {
-  final MovementsService movementService = MovementsService();
-  late Future<List<MovementDTO>> decryptedMovements;
-  LastMovementsList({super.key}) {
-    decryptedMovements = _loadDecryptedMovements();
-  }
-  Future<List<MovementDTO>> _loadDecryptedMovements() async {
-    List<MovementDTO> movements =
-        await movementService.getAllDecryptedMovements();
-    return movements.toList();
-  }
+  final List<MovementDTO> movementsList;
+  const LastMovementsList({super.key, required this.movementsList});
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<MovementDTO>>(
-      future: decryptedMovements,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return const Text('Error loading movements');
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Text('No movements available');
-        } else {
+  Widget build(BuildContext context) {    
           return Column(
             children: [
               Padding(
@@ -45,10 +26,9 @@ class LastMovementsList extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount:
-                      snapshot.data!.length < 5 ? snapshot.data!.length : 5,
+            itemCount: movementsList.length > 5 ? 5 : movementsList.length,
                   itemBuilder: (context, index) {
-                    MovementDTO movement = snapshot.data![index];
+              MovementDTO movement = movementsList[index];
                     return Container(
                       margin: const EdgeInsets.symmetric(vertical: 2),
                       child: Material(
@@ -95,9 +75,6 @@ class LastMovementsList extends StatelessWidget {
                 color: primaryColor,
               )
             ],
-          );
-        }
-      },
-    );
+    );    
   }
 }

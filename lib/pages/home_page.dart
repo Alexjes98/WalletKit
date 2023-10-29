@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wallet_kit/constants/app_colors.dart';
 import 'package:wallet_kit/constants/components.dart';
+import 'package:wallet_kit/providers/movements_provider.dart';
 import 'package:wallet_kit/widgets/common/bottom_nav_bar.dart';
 import 'package:wallet_kit/widgets/home/balance_display.dart';
 import 'package:wallet_kit/widgets/home/floating_expandable_action_button.dart';
@@ -69,12 +71,15 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     IconButton(
                                       onPressed: () => {},
-                                      icon: Icon(Icons.notifications),
+                                      icon: const Icon(Icons.notifications),
                                       color: Colors.white,
                                     ),
                                     IconButton(
-                                      onPressed: () => {},
-                                      icon: Icon(Icons.add),
+                                      onPressed: () => {
+                                        Navigator.of(context)
+                                            .pushNamed('/addMovement')
+                                      },
+                                      icon: const Icon(Icons.add),
                                       color: Colors.white,
                                     ),
                                     Text(
@@ -106,7 +111,21 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: Column(
                         children: [
-                          Expanded(child: LastMovementsList()),
+                          Consumer(builder: (context, ref, _) {
+                            final movements = ref.watch(allMovementsProvider);
+                            return movements.when(
+                              loading: () => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              error: (error, stackTrace) => Text(
+                                error.toString(),
+                                style: const TextStyle(color: errorColor),
+                              ),
+                              data: (movements) => Expanded(
+                                  child: LastMovementsList(
+                                      movementsList: movements)),
+                            );
+                          }),
                         ],
                       ),
                     ),
