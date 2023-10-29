@@ -7,29 +7,29 @@ class WalletNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: backgroundColor,
+      color: primaryColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
             onPressed: () => Navigator.pushReplacementNamed(context, '/'),
             icon: const Icon(Icons.home),
-            color: primaryColor,
+            color: backgroundColor,
           ),
           IconButton(
             onPressed: () => Navigator.pushNamed(context, '/movements'),
             icon: const Icon(Icons.account_balance_wallet),
-            color: primaryColor,
+            color: backgroundColor,
           ),
           IconButton(
             onPressed: () => Navigator.pushNamed(context, '/profile'),
             icon: const Icon(Icons.person),
-            color: primaryColor,
+            color: backgroundColor,
           ),
           IconButton(
             onPressed: () => Navigator.pushNamed(context, '/settings'),
             icon: const Icon(Icons.settings),
-            color: primaryColor,
+            color: backgroundColor,
           ),
         ],
       ),
